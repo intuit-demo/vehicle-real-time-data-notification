@@ -1,2 +1,11 @@
 server:
   port: 8083
+
+
+spring:
+  kafka:
+    topic: 'intuit.intuit.vehicleevents'
+    bootstrap-servers: 'DESKTOP-P9F94AL:9092'
+    consumer:
+      group-id: 'notification-listener'
+      auto-offset-reset: 'earliest'
