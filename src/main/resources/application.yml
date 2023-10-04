@@ -1,7 +1,6 @@
 server:
   port: 8083
 
-
 spring:
   kafka:
     topic: 'intuit.intuit.vehicleevents'
@@ -9,3 +8,23 @@ spring:
     consumer:
       group-id: 'notification-listener'
       auto-offset-reset: 'earliest'
+  datasource:
+    url: 'jdbc:h2:mem:camunda'
+    driverClassName: 'org.h2.Driver'
+    username: 'sa'
+    password: 'sa'
+    initialization-mode: 'always'
+
+camunda:
+  bpm:
+    database:
+      schema-update: true
+    webapp:
+      index-redirect-enabled: true
+    admin-user:
+      id: 'demo'
+      password: 'demo'
+    modeler:
+      app:
+        rewrite: false
+
