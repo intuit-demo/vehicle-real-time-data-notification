@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_051kjcm" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:process id="vehicleTrackingWorkflow" name="Vehicle Tracking Workflow" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1mkpv7s</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:businessRuleTask id="overSpeedRuleTaskId" name="Over Speed Rule" camunda:resultVariable="overSpeed" camunda:decisionRef="overSpeedRuleDmnTaskId" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1mkpv7s</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hmdurc</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1mkpv7s" sourceRef="StartEvent_1" targetRef="overSpeedRuleTaskId" />
+    <bpmn:sequenceFlow id="Flow_084xrnr" name="true" sourceRef="overSpeedDecisionId" targetRef="overSpeedTicketTaskId">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${overSpeed == 'true'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lny09f" name="false" sourceRef="overSpeedDecisionId" targetRef="Event_1753ze8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${overSpeed == 'false'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_1753ze8">
+      <bpmn:incoming>Flow_00rupbb</bpmn:incoming>
+      <bpmn:incoming>Flow_0lny09f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_00rupbb" sourceRef="overSpeedTicketTaskId" targetRef="Event_1753ze8" />
+    <bpmn:inclusiveGateway id="overSpeedDecisionId" name="Over Speed Decision">
+      <bpmn:incoming>Flow_1hmdurc</bpmn:incoming>
+      <bpmn:outgoing>Flow_084xrnr</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0lny09f</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1hmdurc" sourceRef="overSpeedRuleTaskId" targetRef="overSpeedDecisionId" />
+    <bpmn:serviceTask id="overSpeedTicketTaskId" name="over speed ticket" camunda:delegateExpression="${overSpeedNotificationService}">
+      <bpmn:incoming>Flow_084xrnr</bpmn:incoming>
+      <bpmn:outgoing>Flow_00rupbb</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="vehicleTrackingWorkflow">
+      <bpmndi:BPMNShape id="Gateway_0f46o6u_di" bpmnElement="overSpeedDecisionId">
+        <dc:Bounds x="445" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="440" y="58" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jy6pot_di" bpmnElement="overSpeedTicketTaskId">
+        <dc:Bounds x="560" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1753ze8_di" bpmnElement="Event_1753ze8">
+        <dc:Bounds x="712" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_081smvz_di" bpmnElement="overSpeedRuleTaskId">
+        <dc:Bounds x="290" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1mkpv7s_di" bpmnElement="Flow_1mkpv7s">
+        <di:waypoint x="228" y="120" />
+        <di:waypoint x="290" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_084xrnr_di" bpmnElement="Flow_084xrnr">
+        <di:waypoint x="495" y="120" />
+        <di:waypoint x="560" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="518" y="102" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lny09f_di" bpmnElement="Flow_0lny09f">
+        <di:waypoint x="470" y="145" />
+        <di:waypoint x="470" y="190" />
+        <di:waypoint x="730" y="190" />
+        <di:waypoint x="730" y="138" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="489" y="163" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00rupbb_di" bpmnElement="Flow_00rupbb">
+        <di:waypoint x="660" y="120" />
+        <di:waypoint x="712" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hmdurc_di" bpmnElement="Flow_1hmdurc">
+        <di:waypoint x="390" y="120" />
+        <di:waypoint x="445" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

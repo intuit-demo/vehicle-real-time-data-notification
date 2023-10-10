@@ -1,13 +1,15 @@
 server:
-  port: 8083
+  port: 8084
 
 spring:
   kafka:
-    topic: 'intuit.intuit.vehicleevents'
     bootstrap-servers: 'DESKTOP-P9F94AL:9092'
     consumer:
+      topic: 'vehicle.events.topic'
       group-id: 'notification-listener'
       auto-offset-reset: 'earliest'
+    producer:
+      topic: 'intuit.overspeed.vehicleevents'
   datasource:
     url: 'jdbc:h2:mem:camunda'
     driverClassName: 'org.h2.Driver'

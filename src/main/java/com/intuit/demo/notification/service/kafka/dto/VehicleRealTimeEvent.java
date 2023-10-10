@@ -11,17 +11,25 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleEvent implements Serializable {
+public class VehicleRealTimeEvent implements Serializable {
 
-    private String id;
     private String uuid;
     private String registrationNumber;
-    private String status;
     private Double latitude;
     private Double longitude;
+    private String status;
     private Double speed;
-    private Double distance;
     private Double fuel;
     private String timestamp;
-    private String receivedTimestamp;
+    private LastKnowGeoLocation lastKnowGeoLocation;
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class LastKnowGeoLocation {
+        private Double latitude;
+        private Double longitude;
+    }
+
 }

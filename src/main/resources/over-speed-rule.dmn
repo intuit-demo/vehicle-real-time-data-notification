@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="overSpeedRuleDmnId" name="Over Speed Rule" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.2" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <decision id="overSpeedRuleDmnTaskId" name="over speed rule">
+    <decisionTable id="DecisionTable_0d8y34i">
+      <input id="Input_1" label="Speed of the Car" biodi:width="192" camunda:inputVariable="speed">
+        <inputExpression id="InputExpression_1" typeRef="double" expressionLanguage="feel">
+          <text>speed</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Is Over Speeded?" name="overSpeed" typeRef="boolean" />
+      <rule id="DecisionRule_18ccqju">
+        <inputEntry id="UnaryTests_0a7caos">
+          <text>&gt;= 70</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b9jizi">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rmhorh">
+        <inputEntry id="UnaryTests_19509uq">
+          <text>&lt; 70</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0x7737s">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="overSpeedRuleDmnTaskId">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
