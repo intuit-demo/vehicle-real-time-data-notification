@@ -3,13 +3,13 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: 'DESKTOP-P9F94AL:9092'
+    bootstrap-servers: '192.168.1.4:9092'
     consumer:
-      topic: 'vehicle.events.topic'
+      topic: 'vehicle.events'
       group-id: 'notification-listener'
       auto-offset-reset: 'earliest'
     producer:
-      topic: 'intuit.overspeed.vehicleevents'
+      topic: 'overspeed.vehicle.events'
   datasource:
     url: 'jdbc:h2:mem:camunda'
     driverClassName: 'org.h2.Driver'
